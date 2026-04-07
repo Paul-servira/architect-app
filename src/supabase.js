@@ -1,0 +1,31 @@
+import { createClient } from '@supabase/supabase-js'
+
+// ============================================================
+//  PASTE YOUR SUPABASE CREDENTIALS HERE (see SETUP.md step 1)
+// ============================================================
+const SUPABASE_URL = 'YOUR_SUPABASE_URL_HERE'
+const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY_HERE'
+
+export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+
+// Drop-in replacement for window.storage
+export const S = {
+  async get(k) {
+    try {
+      const { data, error } = await supabase
+        .from('architect_data')
+        .select('value')
+        .eq('key', k)
+        .single()
+      if (error || !data) return null
+      return data.value
+    } catch { return null }
+  },
+  async set(k, v) {
+    try {
+      await supabase
+        .from('architect_data')
+        .upsert({ key: k, value: v, updated_at: new Date().toISOString() }, { onConflict: 'key' })
+    } catch (e) { console.error('Storage error:', e) }
+  },
+}
