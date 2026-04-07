@@ -3,8 +3,8 @@ import { createClient } from '@supabase/supabase-js'
 // ============================================================
 //  PASTE YOUR SUPABASE CREDENTIALS HERE (see SETUP.md step 1)
 // ============================================================
-const SUPABASE_URL = 'YOUR_SUPABASE_URL_HERE'
-const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY_HERE'
+const SUPABASE_URL = 'https://dosylcqbpigqjbkotsvp.supabase.co'
+const SUPABASE_ANON_KEY = 'sb_publishable_avHzmMfv5fMZ62JmemiaMg_eAG0sf6n'
 
 export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
 
